@@ -7,9 +7,16 @@ module.exports = async (ctx) => {
     }).select();
     //类型
     const channel = await mysql('nideshop_channel').select();
+    /**
+     * 品牌列表
+     */
+    const brandList = await mysql('nideshop_brand').where({
+        is_new: 1
+    }).orderBy("new_sort_order", 'asc').limit(4).select();
 
     ctx.body = {
         "banner": banner,
-        "channel": channel
+        "channel": channel,
+        "brandList": brandList
     }
 }
